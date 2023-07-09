@@ -11,14 +11,15 @@ const floor3 = document.querySelector('.floor-3');
 //09/07/2023: como os valores não variam, chamei-os de constantes
 
 let gameOver = false; //09/07/2023: booleana para recomeçar o jogo após o game over (ela reaparece como true mais abaixo e está relacionada com a função document.addEventListener('keydown', function (event))
+let score = 0; //09/07/2023: criei um score de pontuação relacionado com a função if (!gameOver) { score++;  updateScore(); }
+let jumping = false; // Adicionada variável "jumping" e definida como false
 
 /*================ Função Start ===================*/
 const start = () => {
 
-    document.getElementById("text-start").style.color = "rgb(236, 236, 236)";
-
+    //document.getElementById("text-start").style.color = "rgb(236, 236, 236)"; //09/07/2023: substituido pela linha abaixo
+    textStart.style.color = "rgb(236, 236, 236)";  //09/07/2023: acrescentado
     pipe.classList.add('pipe-animation');
-
     mario.src = './images/mario.gif';
     mario.style.width = '150px';
     mario.style.marginLeft = '50px';
@@ -27,7 +28,6 @@ const start = () => {
         grass.classList.add('grass-animation');
     }
     setInterval(grassAnimation, 8000);
-
 
     function floorAnimation1() {
         floor1.classList.add('floor-animation-1');
@@ -44,22 +44,51 @@ const start = () => {
     }
     setInterval(floorAnimation3, 3100);
 
-
     audioStart.play();
-}
+
+    document.addEventListener('keydown', jump);  //09/07/2023: acrescentado 
+};
 
 document.addEventListener('keydown', start);
 
 /*================ Função Pulo ===================*/
+let isJumping = false;
+
 const jump = () => {
-    mario.classList.add('jump');
+    if (!isJumping) {
+        isJumping = true;
+        mario.classList.add('jump');
 
-    setTimeout(() => {
-        mario.classList.remove('jump');
-    }, 1500);
-}
+        setTimeout(() => {
+            mario.classList.remove('jump');
+            isJumping = false;
+        }, 1500);
 
-document.addEventListener('keydown', jump);
+        if (!gameOver) {
+            score++;
+            updateScore();
+        }
+    }
+};
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === ' ') { // Verifica se a tecla pressionada é a barra de espaço
+        jump();
+    }
+});
+
+document.addEventListener('keyup', (event) => {
+    if (event.key === ' ') { // Verifica se a tecla solta é a barra de espaço
+        isJumping = false;
+    }
+});
+
+document.addEventListener('keyup', (event) => {
+    if (event.key === ' ') {
+        isJumping = false;
+    }
+});
+
 
 /*================ Código para acabar o jogo ===================*/
 const checkGameOver = setInterval(() => {
@@ -70,34 +99,27 @@ const checkGameOver = setInterval(() => {
     const floorPosition2 = floor2.offsetLeft;
     const floorPosition3 = floor3.offsetLeft;
 
-
     if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
-
         pipe.style.animation = 'none';
         pipe.style.left = `${pipePosition}px`;
-
         mario.style.animation = 'none';
         mario.style.bottom = `${marioPosition}px`;
-
         mario.src = './images/game-over.png';
         mario.style.width = '90px';
         mario.style.marginLeft = '50px';
-
         grass.style.animation = 'none';
         grass.style.left = `${grassPosition}px`;
-
         floor1.style.animation = 'none';
         floor1.style.left = `${floorPosition1}px`;
-
         floor2.style.animation = 'none';
         floor2.style.left = `${floorPosition2}px`;
-
         floor3.style.animation = 'none';
         floor3.style.left = `${floorPosition3}px`;
 
-        document.getElementById("text-start").style.color = "black";
-        document.getElementById("text-start").innerHTML = "<strong>GAME OVER</strong>";
-
+        //document.getElementById("text-start").style.color = "black";   //substituídos pelas duas linhas abaixo
+        //document.getElementById("text-start").innerHTML="<strong>GAME OVER</strong>";
+        textStart.style.color = "black"; //09/07/2023: acrescentado
+        textStart.innerHTML = "<strong>GAME OVER</strong>"; //09/07/2023: acrescentado
 
         function stopAudioStart() {
             audioStart.pause();
@@ -117,7 +139,13 @@ const checkGameOver = setInterval(() => {
     }
 }, 10);
 
-/*================ Reiniciar o jogo após o game over com qualquer botão ===================*/
+/*================ Função para atualizar o contador de pontos ===================*/
+const updateScore = () => {
+    const scoreElement = document.querySelector('#score');
+    scoreElement.textContent = `Score: ${score}`;
+};
+
+/*================ Reiniciar o jogo ap´pos o game over com qualquer botão ===================*/
 document.addEventListener('keydown', function (event) {
     if (gameOver) {
         location.reload(); // Recarrega a página

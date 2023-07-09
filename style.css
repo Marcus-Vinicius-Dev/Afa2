@@ -3,16 +3,16 @@
 * {
     margin: 0;
     border: 0;
-    box-sizing: border-box;    
+    box-sizing: border-box;
 }
 
-body{
+body {
     background-color: rgb(236, 236, 236);
 }
 
 
 .game-board {
-    
+
     width: 100%;
     height: 500px;
     border-top: 800px;
@@ -36,24 +36,27 @@ body{
     z-index: 10;
 }
 
-.jump{
+.jump {
     animation: mario-jump-animation 1500ms ease-out;
 }
 
 @keyframes mario-jump-animation {
-    0%{
+    0% {
         bottom: 0px;
     }
-    45%{
+
+    45% {
         bottom: 180px
     }
-    55%{
+
+    55% {
         bottom: 180px;
     }
-    100%{
-        bottom:0px;
+
+    100% {
+        bottom: 0px;
     }
-    
+
 }
 
 
@@ -73,18 +76,19 @@ body{
     z-index: 10;
 }
 
-.pipe-animation{
+.pipe-animation {
     animation: grass-animation 3s infinite linear;
 }
 
 @keyframes pipe-animation {
-    from{
+    from {
         right: -80px;
     }
-    to{
+
+    to {
         right: 100%;
     }
-    
+
 }
 
 /*Grama */
@@ -96,88 +100,93 @@ body{
     padding-bottom: 34px;
 }
 
-.grass-animation{
+.grass-animation {
     animation: grass-animation 3s infinite linear;
 }
 
 @keyframes grass-animation {
-    from{
+    from {
         right: -80px;
     }
-    to{
+
+    to {
         right: 100%;
     }
-    
+
 }
 
 
 /*Piso*/
 .floor {
-        width: 1500px;
-        position: absolute;
-        bottom: 0;
-        padding-bottom: 34px;
-       
+    width: 1500px;
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 34px;
+
 }
-.floor-1{
-    position: absolute;  
+
+.floor-1 {
+    position: absolute;
     z-index: 0;
 }
 
-.floor-animation-1{
+.floor-animation-1 {
     animation: floor-animation-1 3.1s infinite linear;
 }
 
 @keyframes floor-animation-1 {
-    0%{
-        right:0px;
+    0% {
+        right: 0px;
     }
-    100%{
-        right: 100%;    
+
+    100% {
+        right: 100%;
     }
 }
 
 
 
 
-.floor-2{
-    position: absolute; 
+.floor-2 {
+    position: absolute;
     right: -1500px;
     z-index: 10;
 }
 
-.floor-animation-2{
+.floor-animation-2 {
     animation: floor-animation-2 6.2s infinite linear;
 }
 
 @keyframes floor-animation-2 {
-    0%{
-        right:-1500px;
+    0% {
+        right: -1500px;
     }
-    100%{
-        right: 100%;    
+
+    100% {
+        right: 100%;
     }
 }
 
 
 
 
-.floor-3{
-    position: absolute;  
+.floor-3 {
+    position: absolute;
     right: -1500px;
     z-index: 10;
 }
 
-.floor-animation-3{
+.floor-animation-3 {
     animation: floor-animation-3 6.2s infinite linear;
 }
 
 @keyframes floor-animation-3 {
-    0%{
-        right:-1500px;
+    0% {
+        right: -1500px;
     }
-    100%{
-        right: 100%;    
+
+    100% {
+        right: 100%;
     }
 }
 
@@ -192,6 +201,7 @@ body{
     z-index: 4;
     animation: clouds-animation-1 40s infinite linear;
 }
+
 .clouds-2 {
     position: absolute;
     width: 270px;
@@ -199,6 +209,7 @@ body{
     z-index: 3;
     animation: clouds-animation-2 50s infinite linear;
 }
+
 .clouds-3 {
     position: absolute;
     width: 150px;
@@ -217,45 +228,61 @@ body{
 
 
 @keyframes clouds-animation-1 {
-    from{
+    from {
         right: -550px;
     }
-    to{
+
+    to {
         right: 100%;
     }
 }
 
 @keyframes clouds-animation-2 {
-    from{
+    from {
         right: -1300px;
     }
-    to{
+
+    to {
         right: 100%;
     }
 }
 
 @keyframes clouds-animation-3 {
-    from{
+    from {
         right: -250px;
     }
-    to{
+
+    to {
         right: 100%;
     }
 }
 
 @keyframes clouds-animation-4 {
-    from{
+    from {
         right: -200px;
     }
-    to{
+
+    to {
         right: 100%;
     }
 }
 
 
 p {
-    font-family:'Roboto Mono', monospace;
+    font-family: 'Roboto Mono', monospace;
     padding: 3px;
     text-align: center;
     color: black;
+}
+
+/*================  Adicionados em 09/07/2023 ================ */
+#score {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    z-index: 9999;
+    /*um valor alto para garantir que o contador fique acima de tudo */
 }
