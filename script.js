@@ -10,8 +10,9 @@ const floor3 = document.querySelector('.floor-3');
 
 //09/07/2023: como os valores não variam, chamei-os de constantes
 
-/*================ Função Start ===================*/ 
+let gameOver = false; //09/07/2023: booleana para recomeçar o jogo após o game over (ela reaparece como true mais abaixo e está relacionada com a função document.addEventListener('keydown', function (event))
 
+/*================ Função Start ===================*/
 const start = () => {
 
     document.getElementById("text-start").style.color = "rgb(236, 236, 236)";
@@ -22,63 +23,45 @@ const start = () => {
     mario.style.width = '150px';
     mario.style.marginLeft = '50px';
 
-    function grassAnimation(){
+    function grassAnimation() {
         grass.classList.add('grass-animation');
-            }setInterval(grassAnimation, 8000);
+    }
+    setInterval(grassAnimation, 8000);
 
 
-    function floorAnimation1(){
+    function floorAnimation1() {
         floor1.classList.add('floor-animation-1');
-            }setInterval(floorAnimation1, 0);
+    }
+    setInterval(floorAnimation1, 0);
 
-    function floorAnimation2(){
+    function floorAnimation2() {
         floor2.classList.add('floor-animation-2');
-            }setInterval(floorAnimation2, 0);
-                           
-    function floorAnimation3(){
+    }
+    setInterval(floorAnimation2, 0);
+
+    function floorAnimation3() {
         floor3.classList.add('floor-animation-3');
-            }setInterval(floorAnimation3, 3100); 
-     
-            
+    }
+    setInterval(floorAnimation3, 3100);
+
+
     audioStart.play();
 }
 
 document.addEventListener('keydown', start);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*================ Função Pulo ===================*/ 
-
+/*================ Função Pulo ===================*/
 const jump = () => {
     mario.classList.add('jump');
 
     setTimeout(() => {
         mario.classList.remove('jump');
-    }, 1500); 
+    }, 1500);
 }
 
-document.addEventListener('keydown',  jump);
+document.addEventListener('keydown', jump);
 
-
-
-
-
-
-
-
-/*================ Código para acabar o jogo ===================*/ 
-
+/*================ Código para acabar o jogo ===================*/
 const checkGameOver = setInterval(() => {
     const pipePosition = pipe.offsetLeft;
     const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
@@ -87,46 +70,56 @@ const checkGameOver = setInterval(() => {
     const floorPosition2 = floor2.offsetLeft;
     const floorPosition3 = floor3.offsetLeft;
 
-   
-        if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80 ) {
 
-            pipe.style.animation = 'none';
-            pipe.style.left = `${pipePosition}px`;
+    if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
 
-            mario.style.animation = 'none';
-            mario.style.bottom = `${marioPosition}px`;
+        pipe.style.animation = 'none';
+        pipe.style.left = `${pipePosition}px`;
 
-            mario.src = './images/game-over.png';
-            mario.style.width = '90px';
-            mario.style.marginLeft = '50px';
+        mario.style.animation = 'none';
+        mario.style.bottom = `${marioPosition}px`;
 
-            grass.style.animation = 'none';
-            grass.style.left = `${grassPosition}px`;
+        mario.src = './images/game-over.png';
+        mario.style.width = '90px';
+        mario.style.marginLeft = '50px';
 
-            floor1.style.animation = 'none';
-            floor1.style.left = `${floorPosition1}px`;
+        grass.style.animation = 'none';
+        grass.style.left = `${grassPosition}px`;
 
-            floor2.style.animation = 'none';
-            floor2.style.left = `${floorPosition2}px`;
+        floor1.style.animation = 'none';
+        floor1.style.left = `${floorPosition1}px`;
 
-            floor3.style.animation = 'none';
-            floor3.style.left = `${floorPosition3}px`;
+        floor2.style.animation = 'none';
+        floor2.style.left = `${floorPosition2}px`;
 
-            document.getElementById("text-start").style.color = "black";
-            document.getElementById("text-start").innerHTML="<strong>GAME OVER</strong>";
+        floor3.style.animation = 'none';
+        floor3.style.left = `${floorPosition3}px`;
+
+        document.getElementById("text-start").style.color = "black";
+        document.getElementById("text-start").innerHTML = "<strong>GAME OVER</strong>";
 
 
-            function stopAudioStart(){
-                audioStart.pause();
-                }stopAudioStart();
+        function stopAudioStart() {
+            audioStart.pause();
+        }
+        stopAudioStart();
 
-            audioGameOver.play();
+        audioGameOver.play();
 
-            function stopAudio(){
-                audioGameOver.pause();
-                }setTimeout(stopAudio, 8000);
+        function stopAudio() {
+            audioGameOver.pause();
+        }
+        setTimeout(stopAudio, 8000);
 
-            clearInterval(checkGameOver);
-         }
+        gameOver = true; //09/07/2023: acima tem gameOver = false e está relacionado com a função abaixo document.addEventListener('keydown', function (event)
+
+        clearInterval(checkGameOver);
+    }
 }, 10);
 
+/*================ Reiniciar o jogo após o game over com qualquer botão ===================*/
+document.addEventListener('keydown', function (event) {
+    if (gameOver) {
+        location.reload(); // Recarrega a página
+    }
+});
