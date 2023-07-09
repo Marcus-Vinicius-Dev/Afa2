@@ -1,14 +1,14 @@
-mario = document.querySelector('.mario');
-pipe = document.querySelector('.pipe');
-grass = document.querySelector('.grass');
-textStart = document.querySelector('text-start')
-audioStart = new Audio('./audio/theme.mp3')
-audioGameOver = new Audio('./audio/gameover.mp3')
-floor1 = document.querySelector('.floor-1')
-floor2 = document.querySelector('.floor-2')
-floor3 = document.querySelector('.floor-3')
+const mario = document.querySelector('.mario');
+const pipe = document.querySelector('.pipe');
+const grass = document.querySelector('.grass');
+const textStart = document.querySelector('#text-start');
+const audioStart = new Audio('./audio/theme.mp3');
+const audioGameOver = new Audio('./audio/gameover.mp3');
+const floor1 = document.querySelector('.floor-1');
+const floor2 = document.querySelector('.floor-2');
+const floor3 = document.querySelector('.floor-3');
 
-
+//09/07/2023: como os valores não variam, chamei-os de constantes
 
 /*================ Função Start ===================*/ 
 
