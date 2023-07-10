@@ -282,6 +282,9 @@ p {
     left: 10px;
     font-size: 24px;
     color: white;
+    background-color: black;
+    /* Adicionado fundo preto */
+    padding: 5px;
     font-weight: bold;
     z-index: 9999;
     /*um valor alto para garantir que o contador fique acima de tudo */
