@@ -12,7 +12,6 @@ const floor3 = document.querySelector('.floor-3');
 
 let gameOver = false; //09/07/2023: booleana para recomeçar o jogo após o game over (ela reaparece como true mais abaixo e está relacionada com a função document.addEventListener('keydown', function (event))
 let score = 0; //09/07/2023: criei um score de pontuação relacionado com a função if (!gameOver) { score++;  updateScore(); }
-let jumping = false; // Adicionada variável "jumping" e definida como false
 
 /*================ Função Start ===================*/
 const start = () => {
@@ -45,8 +44,6 @@ const start = () => {
     setInterval(floorAnimation3, 3100);
 
     audioStart.play();
-
-    document.addEventListener('keydown', jump);  //09/07/2023: acrescentado 
 };
 
 document.addEventListener('keydown', start);
@@ -79,12 +76,6 @@ document.addEventListener('keydown', (event) => {
 
 document.addEventListener('keyup', (event) => {
     if (event.key === ' ') { // Verifica se a tecla solta é a barra de espaço
-        isJumping = false;
-    }
-});
-
-document.addEventListener('keyup', (event) => {
-    if (event.key === ' ') {
         isJumping = false;
     }
 });
@@ -145,7 +136,7 @@ const updateScore = () => {
     scoreElement.textContent = `Score: ${score}`;
 };
 
-/*================ Reiniciar o jogo ap´pos o game over com qualquer botão ===================*/
+/*================ Reiniciar o jogo ===================*/
 document.addEventListener('keydown', function (event) {
     if (gameOver) {
         location.reload(); // Recarrega a página
